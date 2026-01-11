@@ -1,50 +1,59 @@
 import os
 
-def exibir_menu():
-    print("Menu de Opções:\n")
-    print("1- Cadastrar novo usuário")
-    print("2- Listar usuários cadastrados")
-    print("3- Cadastrar novo animal")
-    print("4- Listar animais cadastrados")
-    print("5- Sair\n")
+info_patitas = [{}]
 
-    opcao_escolhida = int(input("Digite a opção desejada:\n"))
+def listar_menu():
+    print('PATITAS! - SEU MELHOR AMIGO ESTÁ AQUI!')
+    print('*' * 40)
+    print('1 - Cadastrar Animal')
+    print('2 - Listar Animais Cadastrados')
+    print('3 - Sair')
+
+def opcao_escolhida_menu():
+    opcao_menu = int(input('Escolha uma opção do menu: '))
+    if opcao_menu == 1:
+        cadastrar_novo_animal()
+    elif opcao_menu == 2:
+        listar_animais_cadastrados()
+    elif opcao_menu == 3:
+        sair_do_patitas()
+    else:
+        print('Opção inválida! Tente novamente.\n')
+        os.system('cls')
+        listar_menu()
+
+def cadastrar_novo_animal():
+    nome = input('Nome do animal; ')
+    especie = input('Espécie do animal: ')
+    idade = input('Idade do animal:')
+    dados_novo_animal = {
+        'nome': nome,
+        'especie': especie,
+        'idade': idade
+    }
+    info_patitas.append(dados_novo_animal)
+    print(f'Vamos dar boas vidas ao nosso novo amigo {nome}!\n')
+
+    print('Aperte qualquer tecla para voltar ao menu principal')
+    listar_menu()
+
+def listar_animais_cadastrados():
+    print('Animais Cadastrados:\n')
+    print('*' * 40)
+    for animal in info_patitas:
+        nome_animal = animal['nome']
+        especie_animal = animal['especie']
+        idade_animal = animal['idade']
+        print(f'Nome: {nome_animal} | Espécie: {especie_animal} | Idade: {idade_animal}')
+        print('*' * 40 + '\n')
+
+def sair_do_patitas():
+    print('Obrigada por usar o Patitas!')
     os.system('cls')
 
-    escolher_opcao(opcao_escolhida)
+def main():
+    listar_menu()
+    opcao_escolhida_menu()
 
-def escolher_opcao(opcao_menu):
-    if opcao_menu == 1:
-        cadastrar_usuario()
-    elif opcao_menu == 2:
-        listar_usuarios()
-    elif opcao_menu == 3:
-        cadastrar_animal()
-    elif opcao_menu == 4:
-        listar_animais()
-    elif opcao_menu == 5:
-        print("Saindo do programa...")
-        os.system('cls')
-    else:
-        print("Opção inválida. Tente novamente.")
-        exibir_menu()
-
-def cadastrar_usuario():
-    nome_usuario = input("Digite o nome do usuário: ")
-    email_usuario = input("Digite o email do usuário: ")
-    telefone_usuario =  input("Digite o telefone do usuário: ")
-    print(f"Seja bem-vindo(a) ao patitas, {nome_usuario}! Seu novo amiguinho está esperando por você :)")
-
-def listar_usuarios():
-    print("Lista de usuários cadastrados:")
-
-def cadastrar_animal():
-    nome_animal = input("Digite o nome do animal: ")
-    especie_animal = input("Digite a espécie do animal: ")
-    idade_animal = input("Digite a idade do animal: ")
-    print(f"O animal {nome_animal} foi cadastrado com sucesso!")
-
-def listar_animais():
-    print("Lista de animais cadastrados:")
-
-    exibir_menu()
+if __name__ == '__main__':
+    main()
